@@ -1,12 +1,24 @@
 package com.mistershorr.birthdaytracker
 
+import android.R.attr
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import com.backendless.Backendless
 import com.mistershorr.birthdaytracker.databinding.ActivityLoginBinding
+import com.backendless.exceptions.BackendlessFault
+
+import com.backendless.BackendlessUser
+
+import com.backendless.async.callback.AsyncCallback
+
+import android.R.attr.password
+import android.util.Log
+import android.widget.Toast
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -18,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         // keys for the key-value pairs for the intent extras
         val EXTRA_USERNAME = "username"
         val EXTRA_PASSWORD = "password"
+        val EXTRA_USER_ID = "userid"
     }
 
     // starting an activity for a result
@@ -41,6 +54,38 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Backendless.initApp( this, Constants.APP_ID, Constants.API_KEY )
+
+        binding.buttonLoginLogin.setOnClickListener {
+            // do not forget to call Backendless.initApp in the app initialization code
+
+            val username = binding.editTextLoginUsername.text.toString()
+            val password = binding.editTextLoginPassword.text.toString()
+            Backendless.UserService.login(
+                username,
+                password,
+                object : AsyncCallback<BackendlessUser?> {
+                    override fun handleResponse(user: BackendlessUser?) {
+                        // user has been logged in
+                        Log.d("LoginActivity", "handleResponse: ${user?.email}")
+                        Toast.makeText(this@LoginActivity,
+                            "${user?.getProperty("username")} has logged in successfully",
+                            Toast.LENGTH_SHORT).show()
+
+                        val birthdayListIntent = Intent(this@LoginActivity, BirthdayListActivity:: class.java)
+                        birthdayListIntent.putExtra(EXTRA_USER_ID, user?.objectId)
+                        startActivity(birthdayListIntent)
+                        finish()
+                    }
+
+                    override fun handleFault(fault: BackendlessFault) {
+                        // login failed, to get the error code call fault.getCode()
+                        Log.d("LoginActivity", "handleFault: ${fault.message}")
+                    }
+                })
+
+        }
+
         binding.textViewLoginCreateAccount.setOnClickListener {
             // launch the registration activity
             // pass the values of username and password along to the new activity
@@ -58,7 +103,6 @@ class LoginActivity : AppCompatActivity() {
 
             // 3. launch the activity
 //            startActivity(registrationIntent)
-
             // 3b. Alternate: Could launch the activity for a result instead
             // use the variable from the register for result contract above
             startRegistrationForResult.launch(registrationIntent)

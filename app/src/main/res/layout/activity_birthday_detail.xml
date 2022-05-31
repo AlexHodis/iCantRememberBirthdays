@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BirthdayDetailActivity">
+
+    <CheckBox
+        android:id="@+id/checkBox_birthdayDetail_giftBought"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Purchased?"
+        app:layout_constraintBottom_toTopOf="@+id/textView_birthdayDetail_birthdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_birthdayDetail_desiredGift" />
+
+    <EditText
+        android:id="@+id/editText_birthdayDetail_budget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Budget"
+        android:inputType="none"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/editText_birthdayDetail_desiredGift"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_birthdayDetail_name" />
+
+    <EditText
+        android:id="@+id/editText_birthdayDetail_desiredGift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Desired Gift"
+        android:inputType="none"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox_birthdayDetail_giftBought"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_birthdayDetail_budget" />
+
+    <EditText
+        android:id="@+id/editText_birthdayDetail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="none"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/editText_birthdayDetail_budget"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_birthdayDetail_birthdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/textView_birthdayDetail_daysUntil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_birthdayDetail_giftBought"
+        tools:text="Birthdate" />
+
+    <TextView
+        android:id="@+id/textView_birthdayDetail_daysUntil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_birthdayDetail_birthdate"
+        tools:text="Calculated Days Until Birthday" />
+
+    <Button
+        android:id="@+id/button_birthdayDetail_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
